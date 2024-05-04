@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  
+  frontend:
+    container_name: noteaifrontend
+    image: noteainext-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    environment:
+      NODE_ENV: development
+      WATCHPACK_POLLING: true
+      MONGO_URL: mongodb://mongo:27017
+      DB_NAME: noteaidb
+      COL_NAME: noteai
+    command: npm run dev
+    networks:
+      - app-network
+  
+  mongo:
+    image: mongo:7.0.10-rc0-jammy
+    container_name: mongo
+    ports:
+      - '27017:27017'
+    volumes:
+      - dbdata6:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-volume:
+  dbdata6:
