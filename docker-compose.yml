@@ -38,5 +38,4 @@ networks:
     driver: bridge
 
 volumes:
-  mysql-volume:
   dbdata6:
