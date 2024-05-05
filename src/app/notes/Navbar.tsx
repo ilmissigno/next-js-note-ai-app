@@ -6,34 +6,41 @@ import { UserButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { useState } from "react"
-import AddNoteDialog from "@/components/AddNoteDialog"
+import AddEditNoteDialog from "@/components/AddEditNoteDialog"
+import ThemeToggleButton from "@/components/ThemeToggleButton"
+import {dark} from "@clerk/themes"
+import { useTheme } from "next-themes"
 
 export default function Navbar(){
 
-    const [showAddNoteDialog, setShowAddNoteDialog] = useState(false)
+    const { theme } = useTheme()
+
+    const [showAddEditNoteDialog, setShowAddEditNoteDialog] = useState(false)
 
     return (
         <>
             <div className="p-4 shadow">
                 <div className="flex flex-wrap gap-3 items-center justify-between max-w-7xl m-auto">
                     <Link href="/notes" className="flex items-center gap-1">
-                        <Image src={logo} alt="NoteAI App Logo" width={40} height={40}/>
+                        <Image src={logo} alt="NoteAI App Logo" width={60} height={60}/>
                         <span className="font-bold">NoteAI App</span>
                     </Link>
                     <div className="flex items-center gap-2">
-                        <UserButton afterSignOutUrl="/"
-                        appearance={{
-                            elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } }
-                        }}
-                        />
-                        <Button onClick={() => setShowAddNoteDialog(true)}>
+                        <Button onClick={() => setShowAddEditNoteDialog(true)}>
                             <Plus size={20} className="mr-2"></Plus>
                             Aggiungi una Nota
                         </Button>
+                        <UserButton afterSignOutUrl="/"
+                        appearance={{
+                            baseTheme: theme === 'dark' ? dark : undefined,
+                            elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } }
+                        }}
+                        />
+                        <ThemeToggleButton></ThemeToggleButton>
                     </div>
                 </div>
             </div>
-            <AddNoteDialog open={showAddNoteDialog} setOpen={setShowAddNoteDialog}></AddNoteDialog>
+            <AddEditNoteDialog open={showAddEditNoteDialog} setOpen={setShowAddEditNoteDialog}></AddEditNoteDialog>
         </>
     )
 }
