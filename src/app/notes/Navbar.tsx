@@ -10,6 +10,7 @@ import AddEditNoteDialog from "@/components/AddEditNoteDialog"
 import ThemeToggleButton from "@/components/ThemeToggleButton"
 import {dark} from "@clerk/themes"
 import { useTheme } from "next-themes"
+import AIChatButton from "@/components/AIChatButton"
 
 export default function Navbar(){
 
@@ -30,6 +31,7 @@ export default function Navbar(){
                             <Plus size={20} className="mr-2"></Plus>
                             Aggiungi una Nota
                         </Button>
+                        <AIChatButton></AIChatButton>
                         <UserButton afterSignOutUrl="/"
                         appearance={{
                             baseTheme: theme === 'dark' ? dark : undefined,
