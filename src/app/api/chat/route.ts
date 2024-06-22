@@ -14,8 +14,8 @@ export async function POST(req: Request){
 
         const embedding = await getEmbeddings(messagesTruncated.map((message) => message.content).join("\n"))
 
-        const {userId} = auth()
         const user = await currentUser()
+        const {userId} = auth()
 
         console.log(user)
 
