@@ -5,7 +5,7 @@ import logo from "@/assets/logo.png"
 import { UserButton } from "@clerk/nextjs"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
-import { useState } from "react"
+import { useState, useCallback, useEffect } from "react"
 import AddEditNoteDialog from "@/components/AddEditNoteDialog"
 import ThemeToggleButton from "@/components/ThemeToggleButton"
 import {dark} from "@clerk/themes"
@@ -18,6 +18,31 @@ export default function Navbar(){
 
     const [showAddEditNoteDialog, setShowAddEditNoteDialog] = useState(false)
 
+    const useMediaQuery = (width) => {
+        const [targetReached, setTargetReached] = useState(false);
+        const updateTarget = useCallback((e) => {
+            if(e.matches){
+                setTargetReached(true);
+            }else{
+                setTargetReached(false);
+            }
+        }, [])
+
+        useEffect(() => {
+            const media = window.matchMedia(`(max-width: ${width}px)`);
+            media.addEventListener('change', updateTarget)
+            if(media.matches){
+                setTargetReached(true);
+            }
+            return () => media.removeEventListener('change',updateTarget)
+        }, [])
+
+        return targetReached;
+
+    }
+
+    const isBreakPoint = useMediaQuery(768);
+
     return (
         <>
             <div className="p-4 shadow">
@@ -27,9 +52,8 @@ export default function Navbar(){
                         <span className="font-bold">NoteAI App</span>
                     </Link>
                     <div className="flex items-center gap-2">
-                        <Button onClick={() => setShowAddEditNoteDialog(true)}>
-                            <Plus size={20} className="mr-2"></Plus>
-                            Aggiungi una Nota
+                        <Button onClick={() => setShowAddEditNoteDialog(true)} className="size-auto">
+                            <Plus size={15}></Plus>
                         </Button>
                         <AIChatButton></AIChatButton>
                         <UserButton afterSignOutUrl="/"
@@ -38,7 +62,9 @@ export default function Navbar(){
                             elements: { avatarBox: { width: "2.5rem", height: "2.5rem" } }
                         }}
                         />
-                        <ThemeToggleButton></ThemeToggleButton>
+                        {!isBreakPoint && (
+                            <ThemeToggleButton></ThemeToggleButton>
+                        )}
                     </div>
                 </div>
             </div>
