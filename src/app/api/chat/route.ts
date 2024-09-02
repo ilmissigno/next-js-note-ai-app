@@ -28,7 +28,7 @@ export async function POST(req: Request){
         const relevantNotes = await prisma.note.findMany({
             where: {
                 id: {
-                    in: vectorQueryResponse.matches.map((m) => m.id)
+                    in: vectorQueryResponse.matches.map((m: any) => m.id)
                 }
             }
         })
@@ -39,7 +39,7 @@ export async function POST(req: Request){
             role: "assistant",
             content: "Sei un app di note personali intelligente. Rispondi con le domande dell'utente basandoti sulle sue note esistenti." +
             "Le sue note più rilevanti sono: \n"+
-            relevantNotes.map((m) => `Titolo: ${m.title}\n\nContenuto:\n${m.content}`).join("\n\n")
+            relevantNotes.map((m: any) => `Titolo: ${m.title}\n\nContenuto:\n${m.content}`).join("\n\n")
         }
 
         const response = await openai.chat.completions.create({
