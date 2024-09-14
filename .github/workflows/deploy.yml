@@ -14,11 +14,11 @@ permissions:
 jobs:
   build:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: Production
     strategy:
       matrix:
-        node-version: [16.20.2]
+        node-version: [18]
 
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
