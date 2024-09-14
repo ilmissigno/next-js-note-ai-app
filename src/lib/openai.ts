@@ -11,6 +11,7 @@ const openai = new OpenAI({apiKey})
 export default openai;
 
 export async function getEmbeddings(text: string){
+    // Open AI Embeddings
     const response = await openai.embeddings.create({
         model: 'text-embedding-ada-002',
         input: text
