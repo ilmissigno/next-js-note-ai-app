@@ -26,7 +26,46 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Load environment variables
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+          NEXT_PUBLIC_CLERK_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL }}
+          NEXT_PUBLIC_CLERK_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL }}
+          NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL: ${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL }}
+          NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+          PINECONE API KEY: ${{ secrets.PINECONE_API_KEY }}
+          # Add other environment variables here if needed
+        run: echo "Environment variables loaded"
+
+      - name: Npm CI
+        run: npm ci
       
+      - name: Set ENV File
+        run: |
+          echo "DATABASE_URL=${{secrets.DATABASE_URL}}" >> .env.production
+          echo "DATABASE_URL=${{secrets.DATABASE_URL}}" >> .env
+          echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}}" >> .env.production
+          echo "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}}" >> .env
+          echo "CLERK_SECRET_KEY=${{secrets.CLERK_SECRET_KEY}}" >> .env.production
+          echo "CLERK_SECRET_KEY=${{secrets.CLERK_SECRET_KEY}}" >> .env
+          echo "NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL}}" >> .env.production
+          echo "NEXT_PUBLIC_CLERK_SIGN_IN_URL=${{secrets.NEXT_PUBLIC_CLERK_SIGN_IN_URL}}" >> .env
+          echo "NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL}}" >> .env.production
+          echo "NEXT_PUBLIC_CLERK_SIGN_UP_URL=${{secrets.NEXT_PUBLIC_CLERK_SIGN_UP_URL}}" >> .env
+          echo "NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=${{secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL}}" >> .env.production
+          echo "NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=${{secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL}}" >> .env
+          echo "NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=${{secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL}}" >> .env.production
+          echo "NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=${{secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL}}" >> .env
+          echo "OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}}" >> .env.production
+          echo "OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}}" >> .env
+          echo "PINECONE_API_KEY=${{secrets.PINECONE_API_KEY}}" >> .env.production
+          echo "PINECONE_API_KEY=${{secrets.PINECONE_API_KEY}}" >> .env
+
       - name: Build Next.js site
         run: npm run build
         env:
