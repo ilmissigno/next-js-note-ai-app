@@ -57,13 +57,3 @@ jobs:
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
           PINECONE API KEY: ${{ secrets.PINECONE_API_KEY }}
           # Ensure the same environment variables are used during the build
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out  # The output directory for the static build
-
