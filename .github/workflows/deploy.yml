@@ -32,6 +32,7 @@ jobs:
           NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+          PINECONE API KEY: ${{ secrets.PINECONE_API_KEY }}
           # Add other environment variables here if needed
         run: echo "Environment variables loaded"
 
@@ -47,6 +48,7 @@ jobs:
           NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL: ${{ secrets.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           PINECONE_API_KEY: ${{ secrets.PINECONE_API_KEY }}
+          PINECONE API KEY: ${{ secrets.PINECONE_API_KEY }}
           # Ensure the same environment variables are used during the build
 
       - name: Deploy to GitHub Pages
